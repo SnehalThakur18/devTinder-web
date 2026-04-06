@@ -1,7 +1,6 @@
 import React from "react";
 
 const UserCard = ({ user }) => {
-  console.log("user data: ", user);
   const { firstName, lastName, about, gender, age, photoUrl } = user;
 
   return (
@@ -14,8 +13,8 @@ const UserCard = ({ user }) => {
         {age || gender ? <p>{age + ", " + gender}</p> : null}
         <p>{about}</p>
         <div className="card-actions justify-center">
-          <button className="btn btn-primary">Ingnore</button>
-          <button className="btn btn-secondary">Interesed</button>
+          <button className="btn btn-primary">Ignore</button>
+          <button className="btn btn-secondary">Interested</button>
         </div>
       </div>
     </div>
