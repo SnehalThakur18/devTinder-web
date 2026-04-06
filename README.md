@@ -25,3 +25,6 @@
 - Logout
 - Get the feed and add feed data in the store.
 - Build the user card on the feed
+- Edit profile feature
+- Show toast message on save of profile
+- See all my connetions
