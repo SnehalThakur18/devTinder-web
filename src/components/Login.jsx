@@ -26,7 +26,6 @@ const Login = () => {
       return navigate("/");
     } catch (err) {
       setError(err?.response?.data?.message || "Something went wrong");
-      console.error("login error ", err.message);
     }
   };
 
