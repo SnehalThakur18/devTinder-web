@@ -15,7 +15,6 @@ const Requests = () => {
         withCredentials: true,
       });
       dispatch(addRequests(res.data.data));
-      console.log(res.data.data);
     } catch (err) {
       console.error(err);
     }
@@ -36,14 +35,14 @@ const Requests = () => {
 
   if (!requests) return;
 
-  if (requests.length === 0) return <h1 className="text-center my-10"> No Requests Found</h1>;
+  if (requests.length === 0)
+    return <h1 className="text-center my-10"> No Requests Found</h1>;
 
   return (
     <div className="text-center my-10">
       <h1 className="text-bold text-black text-xl">Connection Requests</h1>
 
       {requests.map((request) => {
-        console.log("test", request);
         const { _id, firstName, lastName, photoUrl, age, gender, about } =
           request.fromUserId;
 

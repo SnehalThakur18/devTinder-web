@@ -30,3 +30,4 @@
 - New page - See all my connetions
 - New page - See all my connetion requests
 - Feature - Accept or Reject connection requests
+- Feature - Send or Ignore the user card from the feed.
