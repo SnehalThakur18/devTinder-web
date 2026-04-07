@@ -27,4 +27,5 @@
 - Build the user card on the feed
 - Edit profile feature
 - Show toast message on save of profile
-- See all my connetions
+- New page - See all my connetions
+- New page - See all my connetion requests
