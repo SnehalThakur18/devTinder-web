@@ -47,8 +47,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center my-10">
-      <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="flex justify-center my-10 px-4">
+      <div className="card bg-base-100 w-full max-w-sm shadow-sm">
         <div className="card-body">
           <h2 className="card-title justify-center">
             {isLoginForm ? "Login" : "Sign Up"}

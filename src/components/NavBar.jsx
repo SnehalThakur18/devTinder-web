@@ -17,15 +17,15 @@ const NavBar = () => {
     return navigate("/login");
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm px-2 sm:px-4">
       <div className="flex-1">
         <Link to="/" className="">
-          <img src={logo} alt="DevTinder Logo" className="h-full w-[150px]" />
+          <img src={logo} alt="DevTinder Logo" className="h-full w-[120px] sm:w-[150px]" />
         </Link>
       </div>
       {user && (
-        <div className="flex gap-2 mr-3 items-center">
-          <p>Welcome, {user.firstName}</p>
+        <div className="flex gap-1 sm:gap-2 mr-1 sm:mr-3 items-center">
+          <p className="hidden sm:block">Welcome, {user.firstName}</p>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}

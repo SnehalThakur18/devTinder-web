@@ -17,7 +17,7 @@ const UserCard = ({ user }) => {
     dispatch(removeUserFromFeed(userId));
   };
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="card bg-base-100 w-full max-w-sm shadow-sm">
       <figure>
         <img src={photoUrl} alt="Profile Picture" />
       </figure>

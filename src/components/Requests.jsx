@@ -39,7 +39,7 @@ const Requests = () => {
     return <h1 className="text-center my-10"> No Requests Found</h1>;
 
   return (
-    <div className="text-center my-10">
+    <div className="text-center my-10 px-4">
       <h1 className="text-bold text-black text-xl">Connection Requests</h1>
 
       {requests.map((request) => {
@@ -49,7 +49,7 @@ const Requests = () => {
         return (
           <div
             key={_id}
-            className="flex justify-between m-4 p-4 rounded-lg bg-base-300 w-2/3 mx-auto items-center"
+            className="flex flex-col sm:flex-row justify-between m-4 p-4 rounded-lg bg-base-300 w-full sm:w-3/4 lg:w-2/3 mx-auto items-center gap-4"
           >
             <div>
               <img
@@ -58,7 +58,7 @@ const Requests = () => {
                 src={photoUrl}
               />
             </div>
-            <div className="text-left mx-4 ">
+            <div className="text-center sm:text-left mx-4 flex-1">
               <h2 className="font-bold text-xl">
                 {firstName + " " + lastName}
               </h2>
