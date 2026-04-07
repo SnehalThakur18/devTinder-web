@@ -45,73 +45,66 @@ const EditProfile = ({ user }) => {
     <>
       <div className="flex flex-col lg:flex-row justify-center items-center my-10 px-4 gap-6">
         <div className="flex justify-center">
-          <div className="card bg-base-300 w-full max-w-sm shadow-xl">
+          <div className="card bg-base-300 w-96 shadow-xl">
             <div className="card-body">
               <h2 className="card-title justify-center">Edit Profile</h2>
               <div>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">First Name:</span>
-                  </div>
+                <label className="floating-label my-6">
+                  <span>First Name</span>
                   <input
                     type="text"
+                    placeholder="First Name"
                     value={firstName}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-md w-full text-base-content focus:outline-none"
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
-                  <label className="form-control w-full max-w-xs my-2">
-                    <div className="label">
-                      <span className="label-text">Last Name:</span>
-                    </div>
-                    <input
-                      type="text"
-                      value={lastName}
-                      className="input input-bordered w-full max-w-xs"
-                      onChange={(e) => setLastName(e.target.value)}
-                    />
-                  </label>
-                  <div className="label">
-                    <span className="label-text">Photo URL :</span>
-                  </div>
+                <label className="floating-label my-6">
+                  <span>Last Name</span>
                   <input
                     type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    className="input input-md w-full text-base-content focus:outline-none"
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+                <label className="floating-label my-6">
+                  <span>Photo URL</span>
+                  <input
+                    type="text"
+                    placeholder="Photo URL"
                     value={photoUrl}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-md w-full text-base-content focus:outline-none"
                     onChange={(e) => setPhotoUrl(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">Age:</span>
-                  </div>
+                <label className="floating-label my-6">
+                  <span>Age</span>
                   <input
                     type="text"
+                    placeholder="Age"
                     value={age}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-md w-full text-base-content focus:outline-none"
                     onChange={(e) => setAge(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">Gender:</span>
-                  </div>
+                <label className="floating-label my-6">
+                  <span>Gender</span>
                   <input
                     type="text"
+                    placeholder="Gender"
                     value={gender}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-md w-full text-base-content focus:outline-none"
                     onChange={(e) => setGender(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">About:</span>
-                  </div>
-                  <input
-                    type="text"
+                <label className="floating-label my-6">
+                  <span>About</span>
+                  <textarea
+                    className="textarea w-full text-base-content focus:outline-none resize-none"
+                    placeholder="About"
                     value={about}
-                    className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setAbout(e.target.value)}
                   />
                 </label>

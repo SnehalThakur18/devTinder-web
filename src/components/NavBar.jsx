@@ -33,7 +33,7 @@ const NavBar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img alt="User Avatar" src={user?.photoUrl} />
+                <img alt="User Avatar" src={user?.photoUrl || null} />
               </div>
             </div>
             <ul
