@@ -29,3 +29,4 @@
 - Show toast message on save of profile
 - New page - See all my connetions
 - New page - See all my connetion requests
+- Feature - Accept or Reject connection requests
