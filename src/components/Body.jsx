@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import axios from "axios";
 import NavBar from "./NavBar";
@@ -11,6 +11,7 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
+  const location = useLocation();
 
   const fetchUserData = async () => {
     // if(userData) return;
@@ -32,10 +33,15 @@ const Body = () => {
   };
 
   useEffect(() => {
-    if (!userData) {
+    if (
+      !userData &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/signup"
+    ) {
       fetchUserData();
     }
-  }, []);
+  }, [location.pathname]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
