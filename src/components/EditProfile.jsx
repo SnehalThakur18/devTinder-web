@@ -15,9 +15,11 @@ const EditProfile = ({ user }) => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const saveProfile = async () => {
     setError("");
+    setLoading(true);
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
@@ -38,9 +40,28 @@ const EditProfile = ({ user }) => {
       }, 3000);
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex flex-col lg:flex-row justify-center my-10 px-4 gap-6">
+        <div className="flex justify-center">
+          <div className="card bg-base-200 w-96 shadow-xl animate-pulse">
+            <div className="card-body">
+              <div className="h-8 bg-base-300 rounded w-1/2 mb-4 mx-auto"></div>
+              <div className="h-6 bg-base-300 rounded w-full mb-3"></div>
+              <div className="h-6 bg-base-300 rounded w-full mb-3"></div>
+              <div className="h-6 bg-base-300 rounded w-full mb-3"></div>
+              <div className="h-10 bg-base-300 rounded w-full mb-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-center my-10 px-4 gap-6">

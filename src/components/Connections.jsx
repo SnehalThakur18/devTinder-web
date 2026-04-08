@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionsSlice";
 import { Link } from "react-router-dom";
@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const fetchConnections = async () => {
     if (connections) return;
+    setLoading(true);
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
@@ -18,6 +20,8 @@ const Connections = () => {
     } catch (err) {
       // Handle Error Case
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,7 +29,23 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  if (!connections) return;
+  if (loading || !connections) {
+    return (
+      <div className="flex flex-col gap-4 my-10 px-4 items-center">
+        {[1,2,3].map((i) => (
+          <div key={i} className="flex flex-col sm:flex-row m-4 p-4 rounded-lg bg-base-200 w-full sm:w-3/4 lg:w-1/2 mx-auto items-center gap-4 animate-pulse">
+            <div className="w-20 h-20 rounded-full bg-base-300" />
+            <div className="flex-1 mx-4">
+              <div className="h-6 bg-base-300 rounded w-2/3 mb-2"></div>
+              <div className="h-4 bg-base-300 rounded w-1/3 mb-2"></div>
+              <div className="h-4 bg-base-300 rounded w-full mb-2"></div>
+            </div>
+            <div className="btn btn-primary btn-disabled w-20 h-10"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   if (connections.length === 0) return <h1 className="text-center my-10"> No Connections Found</h1>;
 
