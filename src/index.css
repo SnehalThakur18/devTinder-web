@@ -1,2 +1,4 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.card-body :where(p) { flex-grow: 0 !important; }

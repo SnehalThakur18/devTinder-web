@@ -23,9 +23,9 @@ const UserCard = ({ user }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
-        {age || gender ? <p>{age + ", " + gender}</p> : null}
-        <p>{about}</p>
-        <div className="card-actions justify-center">
+        {age || gender ? <p className="mb-0 leading-tight">{age + ", " + gender}</p> : null}
+        <p className="mt-1">{about}</p>
+        <div className="card-actions justify-center my-3">
           <button
             className="btn btn-primary"
             onClick={() => handleSendRequest("ignored", _id)}
