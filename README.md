@@ -32,3 +32,10 @@
 - Feature - Accept or Reject connection requests
 - Feature - Send or Ignore the user card from the feed.
 - Signup API integrated
+
+## Deployment
+
+- Signup on AWS
+- Launch instance
+- chmod 400 <secret>.pem
+
