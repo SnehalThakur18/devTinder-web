@@ -44,4 +44,11 @@
 - Frontend
   - npm install -> dependencies install
   - npm run build
- 
+  - sudo apt update
+  - sudo apt install nginx
+  - sudo systemctl start nginx
+  - sudo systemctl enable nginx
+  - Copy code from dist(build files) to /var/www/html/
+  - sudo scp -r dist/\* /var/www/html/
+  - Enable port :80 of your instance
+
