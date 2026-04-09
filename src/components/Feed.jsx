@@ -7,7 +7,10 @@ import { addFeed } from "../utils/feedSlice";
 
 const Spinner = () => (
   <div className="flex justify-center items-center h-40">
-    <span className="loading loading-spinner loading-lg text-primary" aria-label="Loading"></span>
+    <span
+      className="loading loading-spinner loading-lg text-primary"
+      aria-label="Loading"
+    ></span>
   </div>
 );
 
