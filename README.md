@@ -75,7 +75,7 @@ Body NavBar Route=/ => Feed Route=/login => Login Route=/connetions => Connectio
     Frontend = devtinder.com
     Backend = devtinder.com:7777 => devtinder.com/api
 
-    nginx config : 
+    nginx config :
 
     server_name 43.204.96.49;
 
@@ -88,3 +88,11 @@ Body NavBar Route=/ => Feed Route=/login => Login Route=/connetions => Connectio
         proxy_cache_bypass $http_upgrade;
     }
 
+## Addding a custom Domain name
+
+- purchased domain name from godaddy
+- signup on cloudflare & add a new domain name
+- change the nameservers on godaddy and point it to cloudflare
+- wait for sometime till your nameservers are updated ~15 minutes
+- DNS record: A devtinder.in 43.204.96.49
+- Enable SSL for website
