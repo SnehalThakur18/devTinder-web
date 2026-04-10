@@ -32,6 +32,9 @@
 - Feature - Accept or Reject connection requests
 - Feature - Send or Ignore the user card from the feed.
 - Signup API integrated
+- E2E testing
+
+Body NavBar Route=/ => Feed Route=/login => Login Route=/connetions => Connections Router=/profile => Profile
 
 ## Deployment
 
@@ -61,3 +64,27 @@
   - config nginx - /etc/nginx/sites-available/default
   - restart nginx - sudo systemctl restart nginx
   - Modify the BASEURL in frontend project to "/api"
+
+## Ngxinx config:
+
+    Frontend = http://43.204.96.49/
+    Backend = http://43.204.96.49:7777/
+
+    Domain name = devtinder.com => 43.204.96.49
+
+    Frontend = devtinder.com
+    Backend = devtinder.com:7777 => devtinder.com/api
+
+    nginx config : 
+
+    server_name 43.204.96.49;
+
+    location /api/ {
+        proxy_pass http://localhost:7777/;  # Pass the request to the Node.js app
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
