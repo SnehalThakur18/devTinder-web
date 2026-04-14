@@ -125,3 +125,8 @@ Body NavBar Route=/ => Feed Route=/login => Login Route=/connetions => Connectio
 - Amazon SES Bulk Emails
 - Make sendEmail function dynamic
 - bee-queue & bull npm packages
+
+## Razorpay Payment Gateway Integration
+
+- Signup on Razorpay & complete KYC
+- 
