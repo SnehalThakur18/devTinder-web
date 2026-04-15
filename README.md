@@ -129,4 +129,5 @@ Body NavBar Route=/ => Feed Route=/login => Login Route=/connetions => Connectio
 ## Razorpay Payment Gateway Integration
 
 - Signup on Razorpay & complete KYC
-- 
+- Created a UI for premium page
+- Creating an API for create order in backend
