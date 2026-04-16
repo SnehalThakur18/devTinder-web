@@ -1,4 +1,6 @@
 import React from "react";
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
 
 const PremiumCard = ({
   title,
@@ -7,16 +9,17 @@ const PremiumCard = ({
   features,
   unavailableFeatures,
   buttonText,
+  onBuyClick,
 }) => (
-  <div className="card w-96 bg-base-100 shadow-sm h-full">
-    <div className="card-body flex flex-col h-full">
+  <div className="card w-96 bg-base-100 shadow-sm h-full min-h-[500px] flex flex-col">
+    <div className="card-body flex flex-col flex-1">
       {badge && <span className="badge badge-xs badge-warning">{badge}</span>}
       <div className="flex justify-between">
         <h2 className="text-3xl font-bold">{title}</h2>
         <span className="text-xl">{price}</span>
       </div>
       <ul className="mt-6 flex flex-col gap-2 text-xs flex-1">
-        {features.map((feature, idx) => (
+        {features.map((feature) => (
           <li key={feature}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +39,7 @@ const PremiumCard = ({
           </li>
         ))}
         {unavailableFeatures &&
-          unavailableFeatures.map((feature, idx) => (
+          unavailableFeatures.map((feature) => (
             <li className="opacity-50" key={feature}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +60,9 @@ const PremiumCard = ({
           ))}
       </ul>
       <div className="mt-6">
-        <button className="btn btn-primary btn-block">{buttonText}</button>
+        <button className="btn btn-primary btn-block" onClick={onBuyClick}>
+          {buttonText}
+        </button>
       </div>
     </div>
   </div>
@@ -65,41 +70,86 @@ const PremiumCard = ({
 
 const premiumData = [
   {
-    title: "Premium",
-    price: "$29/mo",
-    badge: "Most Popular",
+    title: "Silver Membership",
+    price: "INR300/mo",
+    badge: "Popular",
     features: [
-      "High-resolution image generation",
-      "Customizable style templates",
-      "Batch processing capabilities",
-      "AI-driven image enhancements",
+      "View unlimited developer profiles",
+      "Send up to 10 connection requests per day",
+      "Access to basic chat features",
+      "See who viewed your profile",
+      "Save favorite profiles",
     ],
     unavailableFeatures: [
-      "Seamless cloud integration",
-      "Real-time collaboration tools",
+      "Priority profile boosting",
+      "Advanced search filters",
+      "Unlimited connection requests",
+      "Access to exclusive developer events",
+      "Profile verification badge",
     ],
-    buttonText: "Subscribe",
+    buttonText: "Buy Silver",
+    membershipType: "Silver",
   },
   {
-    title: "Basic",
-    price: "$9/mo",
+    title: "Gold Membership",
+    price: "INR700/mo",
     badge: "Best Value",
-    features: ["Standard image generation", "Basic style templates"],
-    unavailableFeatures: [
-      "Batch processing capabilities",
-      "AI-driven image enhancements",
-      "Seamless cloud integration",
-      "Real-time collaboration tools",
+    features: [
+      "All Silver features included",
+      "Unlimited connection requests",
+      "Priority profile boosting",
+      "Advanced search filters (by skills, location, etc.)",
+      "Access to exclusive developer events",
+      "Profile verification badge",
+      "Direct messaging without connection",
+      "Early access to new features",
     ],
-    buttonText: "Get Started",
+    unavailableFeatures: ["Personalized career coaching"],
+    buttonText: "Buy Gold",
+    membershipType: "Gold",
   },
 ];
 
+const handleBuyClick = async (membershipType) => {
+  // Replace this with your payment or navigation logic
+  alert(`You have selected the ${membershipType} membership!`);
+  const order = await axios.post(
+    BASE_URL + "/payment/create",
+    { membershipType },
+    { withCredentials: true },
+  );
+  const { amount, keyId, currency, notes, orderId } = order.data;
+  const options = {
+    key: keyId,
+    amount,
+    currency,
+    name: "DevTinder Premium",
+    description: "Purchase " + membershipType + " Membership",
+    order_id: orderId,
+    prefill: {
+      name: notes.firstName + " " + notes.lastName,
+      email: notes.email,
+      contact: 23232323,
+    },
+    theme: {
+      color: "#f37254",
+    },
+  };
+
+  const rzp = new window.Razorpay(options);
+
+  rzp.open();
+};
+
 const Premium = () => {
   return (
-    <div className="flex flex-row justify-center gap-8 mt-16 items-stretch">
-      {premiumData.map((data, idx) => (
-        <PremiumCard key={data.title} {...data} />
+    <div className="flex flex-row justify-center gap-8 mt-16 mb-16 items-stretch">
+      {premiumData.map((data) => (
+        <PremiumCard
+          key={data.title}
+          {...data}
+          onBuyClick={() => handleBuyClick(data.membershipType)}
+        />
       ))}
     </div>
   );
