@@ -10,6 +10,7 @@ const PremiumCard = ({
   unavailableFeatures,
   buttonText,
   onBuyClick,
+  disabled,
 }) => (
   <div className="card w-96 bg-base-100 shadow-sm h-full min-h-[500px] flex flex-col">
     <div className="card-body flex flex-col flex-1">
@@ -60,7 +61,7 @@ const PremiumCard = ({
           ))}
       </ul>
       <div className="mt-6">
-        <button className="btn btn-primary btn-block" onClick={onBuyClick}>
+        <button className="btn btn-primary btn-block" onClick={onBuyClick} disabled={disabled}>
           {buttonText}
         </button>
       </div>
@@ -110,38 +111,47 @@ const premiumData = [
   },
 ];
 
-const handleBuyClick = async (membershipType) => {
-  // Replace this with your payment or navigation logic
-  alert(`You have selected the ${membershipType} membership!`);
-  const order = await axios.post(
-    BASE_URL + "/payment/create",
-    { membershipType },
-    { withCredentials: true },
-  );
-  const { amount, keyId, currency, notes, orderId } = order.data;
-  const options = {
-    key: keyId,
-    amount,
-    currency,
-    name: "DevTinder Premium",
-    description: "Purchase " + membershipType + " Membership",
-    order_id: orderId,
-    prefill: {
-      name: notes.firstName + " " + notes.lastName,
-      email: notes.email,
-      contact: 23232323,
-    },
-    theme: {
-      color: "#f37254",
-    },
-  };
 
-  const rzp = new window.Razorpay(options);
-
-  rzp.open();
-};
+import { useState } from "react";
 
 const Premium = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleBuyClick = async (membershipType) => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      alert(`You have selected the ${membershipType} membership!`);
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        { membershipType },
+        { withCredentials: true },
+      );
+      const { amount, keyId, currency, notes, orderId } = order.data;
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: "DevTinder Premium",
+        description: "Purchase " + membershipType + " Membership",
+        order_id: orderId,
+        prefill: {
+          name: notes.firstName + " " + notes.lastName,
+          email: notes.email,
+          contact: 23232323,
+        },
+        theme: {
+          color: "#f37254",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-row justify-center gap-8 mt-16 mb-16 items-stretch">
       {premiumData.map((data) => (
@@ -149,6 +159,7 @@ const Premium = () => {
           key={data.title}
           {...data}
           onBuyClick={() => handleBuyClick(data.membershipType)}
+          disabled={loading}
         />
       ))}
     </div>
