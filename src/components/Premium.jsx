@@ -61,7 +61,11 @@ const PremiumCard = ({
           ))}
       </ul>
       <div className="mt-6">
-        <button className="btn btn-primary btn-block" onClick={onBuyClick} disabled={disabled}>
+        <button
+          className="btn btn-primary btn-block"
+          onClick={onBuyClick}
+          disabled={disabled}
+        >
           {buttonText}
         </button>
       </div>
@@ -111,11 +115,35 @@ const premiumData = [
   },
 ];
 
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { useState } from "react";
 
 const Premium = () => {
+  // Listen to user changes (e.g., on logout/login)
+  const user = useSelector(state => state.user);
   const [loading, setLoading] = useState(false);
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  const [checkedPremium, setCheckedPremium] = useState(false);
+
+  useEffect(() => {
+    setIsUserPremium(false);
+    setCheckedPremium(false);
+    verifyPremiumUser();
+    // eslint-disable-next-line
+  }, [user?._id]);
+
+
+
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+    if (res.data.isPremium) {
+      setIsUserPremium(true);
+    }
+    setCheckedPremium(true);
+  };
 
   const handleBuyClick = async (membershipType) => {
     if (loading) return;
@@ -124,7 +152,7 @@ const Premium = () => {
       alert(`You have selected the ${membershipType} membership!`);
       const order = await axios.post(
         BASE_URL + "/payment/create",
-        { membershipType },
+        { membershipType: membershipType.toLowerCase() },
         { withCredentials: true },
       );
       const { amount, keyId, currency, notes, orderId } = order.data;
@@ -143,6 +171,7 @@ const Premium = () => {
         theme: {
           color: "#f37254",
         },
+        handler: () => verifyPremiumUser(),
       };
 
       const rzp = new window.Razorpay(options);
@@ -152,7 +181,11 @@ const Premium = () => {
     }
   };
 
-  return (
+  if (!checkedPremium) return null;
+
+  return isUserPremium ? (
+    <h1 className="text-center my-10">You're already a premium user</h1>
+  ) : (
     <div className="flex flex-row justify-center gap-8 mt-16 mb-16 items-stretch">
       {premiumData.map((data) => (
         <PremiumCard

@@ -141,6 +141,7 @@ const EditProfile = ({ user }) => {
         </div>
         <UserCard
           user={{ firstName, lastName, photoUrl, age, gender, about }}
+          alwaysDisableButtons={true}
         />
       </div>
       {showToast && (

@@ -6,7 +6,7 @@ import { removeUserFromFeed } from "../utils/feedSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const UserCard = React.memo(({ user }) => {
+const UserCard = React.memo(({ user, alwaysDisableButtons = false }) => {
   const dispatch = useDispatch();
   const { _id, firstName, lastName, about, gender, age, photoUrl } = user;
   const [loading, setLoading] = React.useState(false);
@@ -58,7 +58,7 @@ const UserCard = React.memo(({ user }) => {
             <button
               className="btn btn-primary"
               onClick={() => handleSendRequest("ignored", _id)}
-              disabled={loading}
+              disabled={loading || alwaysDisableButtons}
               aria-label="Ignore user"
             >
               {loading ? <span className="loading loading-spinner loading-xs"></span> : "Ignore"}
@@ -66,7 +66,7 @@ const UserCard = React.memo(({ user }) => {
             <button
               className="btn btn-secondary"
               onClick={() => handleSendRequest("interested", _id)}
-              disabled={loading}
+              disabled={loading || alwaysDisableButtons}
               aria-label="Show interest in user"
             >
               {loading ? <span className="loading loading-spinner loading-xs"></span> : "Interested"}
